@@ -4,50 +4,64 @@ import { FooterComponent } from "../components/footer/footer";
 import { HeaderComponent } from "../components/header/header";
 import { Home } from "./styled";
 import { IProducts } from "../interfaces/IProduct";
-import { fetchProducts } from "../services/api";
-import { useQuery } from "react-query";
+import { CartComponent } from "../components/cart/cart";
+import { motion, useAnimation } from "framer-motion";
+import { useGet } from "../queries/products";
 
-export const HomePage = () => {
-  const [cartItems, setCartItems] = useState<IProducts[]>([]);
+export const HomePage = ({ cart }: any) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const controls = useAnimation();
 
-  // Fetch products data from API.
-  const { data, isLoading, isError } = useQuery("products", fetchProducts, {
-    initialData: [], // Dados iniciais vazios
-    refetchOnWindowFocus: false, // Evita a recarga automática dos dados quando a janela ganha foco
-  });
+  const { data, isLoading } = useGet();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching data</div>;
-
-  const addItemToCart = (product: IProducts) => {
-    setCartItems([...cartItems, product]);
+  const handleToggle = async () => {
+    if (isVisible) {
+      await controls.start({ right: 0, opacity: 1 });
+    } else {
+      await controls.start({ right: "-100%", opacity: 0 });
+    }
+    setIsVisible(!isVisible);
   };
 
-  // Função para remover um item do carrinho
-  const removeItemFromCart = (productId: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== productId));
-  };
-
-  console.log(data);
   return (
     <Home>
-      <HeaderComponent cartItems={cartItems} />
+      <HeaderComponent cartItems={cart.cartItems} handleToggle={handleToggle} />
       <div className="card--container">
-        {data &&
-          data.products.map((item: IProducts) => (
-            <CardComponent
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              description={item.description}
-              photo={item.photo}
-              price={item.price}
-              brand={item.brand}
-              addItemToCart={() => addItemToCart(item)}
-            />
-          ))}
+        {isLoading ? (
+          <>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={`shimmer-${i}`} className="shimmer"></div>
+            ))}
+          </>
+        ) : (
+          <>
+            {data &&
+              data.products.map((item: IProducts) => (
+                <CardComponent
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  description={item.description}
+                  photo={item.photo}
+                  price={item.price}
+                  brand={item.brand}
+                  cart={cart}
+                />
+              ))}
+          </>
+        )}
       </div>
-      {/* <CartComponent /> */}
+      <motion.div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: "-100%",
+          height: "100vh",
+          zIndex: 3,
+        }}
+        animate={controls}>
+        <CartComponent handleToggle={handleToggle} cart={cart} />
+      </motion.div>
       <FooterComponent />
     </Home>
   );

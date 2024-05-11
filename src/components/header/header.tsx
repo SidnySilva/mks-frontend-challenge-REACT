@@ -4,16 +4,17 @@ import { IProducts } from "../../interfaces/IProduct";
 
 interface ICartItem {
   cartItems: IProducts[];
+  handleToggle: () => void;
 }
 
-export const HeaderComponent = ({ cartItems }: ICartItem) => {
+export const HeaderComponent = ({ cartItems, handleToggle }: ICartItem) => {
   return (
     <Header>
       <div className="header--logo">
         <h3>MKS</h3>
         <span>Sistemas</span>
       </div>
-      <Button>
+      <Button onClick={handleToggle}>
         <Cart />
         {cartItems.length}
       </Button>

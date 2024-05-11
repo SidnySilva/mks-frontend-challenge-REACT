@@ -19,16 +19,30 @@ export const Card = styled.div`
   box-shadow: 0 0 8px #00000033;
   border-radius: 8px;
 
+  position: relative;
   img {
     width: 128px;
     height: 159px;
     object-fit: contain;
   }
 
+  .cart--tag {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    color: #fff;
+    background-color: #0f52ba;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 0 0 5px 0;
+    transition: 0.5s;
+  }
   .topContent--container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 221px;
   }
 
   .topContent--container > .topContent--title {
@@ -73,9 +87,12 @@ export const Card = styled.div`
       width: 111px;
       height: 138px;
     }
+    .topContent--container {
+      width: 192px;
+    }
     .topContent--container > .topContent--title {
-    width: 124px;
-  }
+      width: 124px;
+    }
     .card--description {
       width: 192px;
       padding-bottom: 8px;
@@ -84,4 +101,5 @@ export const Card = styled.div`
       height: 32px;
     }
   }
+
 `;

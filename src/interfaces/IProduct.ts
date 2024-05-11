@@ -8,3 +8,12 @@ export interface IProducts {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ICart {
+  cartItems: IProducts[];
+  clearCart: () => void;
+  itemQtd: (productId: number) => number;
+  addItemToCart: (product: IProducts) => void;
+  removeItemFromCart: (productId: number) => void;
+  removeOneItemFromCart: (productId: number) => void;
+}
