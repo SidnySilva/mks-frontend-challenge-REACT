@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { useState } from "react";
 import { CardComponent } from "../components/cards/card";
 import { FooterComponent } from "../components/footer/footer";
 import { HeaderComponent } from "../components/header/header";
@@ -13,7 +13,7 @@ interface IProps {
   cart: ReturnType<typeof useCart>;
 }
 
-export const HomePage = ({ cart }:IProps) => {
+export const HomePage = ({ cart }: IProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const controls = useAnimation();
 

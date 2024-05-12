@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as Bag } from "../../assets/shopping-bag.svg";
-import { ICart } from "../../interfaces/interfaces";
+import { ICart, IProducts } from "../../interfaces/interfaces";
 import { useCart } from "../../util/cartFunctions";
-import { productList } from "../../util/products";
 import { Card } from "./styledCard";
 import { formatNumber } from "../../util/formatNumber";
 import { Tooltip } from "@mui/material";
+import { useGet } from "../../queries/products";
 
 interface IProps {
   id: number;
@@ -29,6 +29,8 @@ export const CardComponent = ({
   const { itemQtd } = useCart();
 
   const [showTag, setShowTag] = useState<Boolean>(false);
+  
+  const { data } = useGet();
 
   useEffect(() => {
     const foundItem = cart.cartItems.find((item) => item.id === id);
@@ -54,7 +56,7 @@ export const CardComponent = ({
         className="card--button"
         onClick={() =>
           !showTag
-            ? productList.find((item) =>
+            ? data.products.find((item: IProducts) =>
                 item.id === id ? cart.addItemToCart(item) : null
               )
             : null
