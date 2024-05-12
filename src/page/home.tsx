@@ -1,14 +1,19 @@
-import { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { CardComponent } from "../components/cards/card";
 import { FooterComponent } from "../components/footer/footer";
 import { HeaderComponent } from "../components/header/header";
 import { Home } from "./styled";
-import { IProducts } from "../interfaces/IProduct";
 import { CartComponent } from "../components/cart/cart";
 import { motion, useAnimation } from "framer-motion";
 import { useGet } from "../queries/products";
+import { IProducts } from "../interfaces/interfaces";
+import { useCart } from "../util/cartFunctions";
 
-export const HomePage = ({ cart }: any) => {
+interface IProps {
+  cart: ReturnType<typeof useCart>;
+}
+
+export const HomePage = ({ cart }:IProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const controls = useAnimation();
 

@@ -1,6 +1,6 @@
 import { Button, Header } from "./styled";
 import { ReactComponent as Cart } from "../../assets/Vector.svg";
-import { IProducts } from "../../interfaces/IProduct";
+import { IProducts } from "../../interfaces/interfaces";
 
 interface ICartItem {
   cartItems: IProducts[];

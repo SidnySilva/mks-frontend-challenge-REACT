@@ -1,8 +1,8 @@
 // cartFunctions.ts
 import { useState } from "react";
-import { ICart, IProducts } from "../interfaces/IProduct";
+import { IProducts } from "../interfaces/interfaces";
 
-export const useCart = (): ICart => {
+export const useCart = () => {
   const [cartItems, setCartItems] = useState<IProducts[]>([]);
 
   const addItemToCart = (product: IProducts) => {

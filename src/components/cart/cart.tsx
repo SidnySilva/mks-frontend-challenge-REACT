@@ -1,16 +1,16 @@
 import { Cart } from "./styled";
 import { CartCardComponent } from "../cards/cartCard";
-import { ICart, IProducts } from "../../interfaces/IProduct";
-import { useState } from "react";
+import { ICart, IProducts } from "../../interfaces/interfaces";
+import React, { useState } from "react";
 import { formatNumber } from "../../util/formatNumber";
 import OverlayComponent from "../animation/purchaseAnim";
 
-interface ITeste {
+interface IProps {
   handleToggle: () => void;
   cart: ICart;
 }
 
-export const CartComponent = ({ handleToggle, cart }: ITeste) => {
+export const CartComponent = ({ handleToggle, cart }: IProps) => {
   const renderedItemIds: Record<number, boolean> = {};
 
   const [isOpen, setIsOpen] = useState(false);

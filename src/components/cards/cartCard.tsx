@@ -1,5 +1,5 @@
 import { CartCard } from "./styledCartCard";
-import { ICart } from "../../interfaces/IProduct";
+import { ICart } from "../../interfaces/interfaces";
 import { formatNumber } from "../../util/formatNumber";
 
 interface IProducts {

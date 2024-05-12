@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as Bag } from "../../assets/shopping-bag.svg";
-import { ICart } from "../../interfaces/IProduct";
+import { ICart } from "../../interfaces/interfaces";
 import { useCart } from "../../util/cartFunctions";
 import { productList } from "../../util/products";
 import { Card } from "./styledCard";
 import { formatNumber } from "../../util/formatNumber";
 import { Tooltip } from "@mui/material";
 
-interface Iteste {
+interface IProps {
   id: number;
   name: string;
   brand: string;
@@ -25,7 +25,7 @@ export const CardComponent = ({
   photo,
   price,
   cart,
-}: Iteste) => {
+}: IProps) => {
   const { itemQtd } = useCart();
 
   const [showTag, setShowTag] = useState<Boolean>(false);
